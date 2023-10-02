@@ -1,18 +1,11 @@
 mod tokens;
 mod syntax;
+mod interpreter;
 
 use std::io::{Read};
 use tokens::tokenize;
-use crate::syntax::{Expr, Op, parse};
-
-
-fn eval(expr: Expr) -> i64 {
-    match expr {
-        Expr::Number(i) => i,
-        Expr::Binary(Op::Plus, left, right) => eval(*left) + eval(*right),
-        Expr::Binary(Op::Minus, left, right) => eval(*left) - eval(*right)
-    }
-}
+use syntax::parse;
+use interpreter::eval;
 
 fn main() {
     let mut input = String::new();
