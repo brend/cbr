@@ -6,6 +6,8 @@ pub enum Token {
     Id(String),
     Plus,
     Minus,
+    LParen,
+    RParen,
 }
 
 pub fn tokenize(input: &str) -> VecDeque<Token> {
@@ -17,6 +19,8 @@ pub fn tokenize(input: &str) -> VecDeque<Token> {
         let t = match c {
             '+' => Token::Plus,
             '-' => Token::Minus,
+            '(' => Token::LParen,
+            ')' => Token::RParen,
             '0'..='9' => Token::Number(format!("{}", c).parse::<i64>().unwrap()),
             _ => panic!("unexpected character: {}", c)
         };

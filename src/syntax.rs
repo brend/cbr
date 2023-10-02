@@ -15,6 +15,14 @@ pub enum Expr {
 fn parse_term(tokens: &mut VecDeque<Token>) -> Expr {
     match tokens.pop_front().unwrap() {
         Token::Number(n) => Expr::Number(n),
+        Token::LParen => {
+            let e = parse_expr(tokens);
+            match tokens.pop_front().unwrap() {
+                Token::RParen => true,
+                t => panic!("expected RParen, found {:?}", t)
+            };
+            e
+        },
         t => panic!("expected term, found {:?}", t)
     }
 }
